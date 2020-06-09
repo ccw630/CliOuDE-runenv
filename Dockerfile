@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 
 COPY build/java_policy /etc
-
+COPY sdkman /opt
 COPY jdt-language-server /opt
 
 SHELL ["/bin/bash", "-c"]
@@ -16,15 +16,10 @@ RUN mkdir -p /etc/nodejs && cd /etc/nodejs && \
     /etc/nodejs/bin/npm i -g flow-bin && \
     /etc/nodejs/bin/npm i -g bash-language-server
 
-# RUN	curl -s https://get.sdkman.io | bash && source /root/.sdkman/bin/sdkman-init.sh && \
-# 	sdk install kotlin 1.3.50 && sdk install scala 2.13.0 && \
-# 	mkdir -p /etc/sdkman && \
-# 	cp -r /root/.sdkman/candidates /etc/sdkman/candidates && \
-#     chmod -R 755 /etc/sdkman/candidates && \
-# 	ln -s /etc/sdkman/candidates/kotlin/1.3.50/bin/kotlinc /usr/bin/kotlinc && ln -s /etc/sdkman/candidates/scala/2.13.0/bin/scalac /usr/bin/scalac && \
-#     cp -r /etc/sdkman/candidates/kotlin/1.3.50/lib /usr/lib/kotlin && \
-#     cp -r /etc/sdkman/candidates/scala/2.13.0/lib /usr/lib/scala && \
-#     rm -rf /root/.sdkman
+RUN	ln -s /opt/sdkman/kotlin/1.3.50/bin/kotlinc /usr/bin/kotlinc && \
+    ln -s /opt/sdkman/scala/2.13.0/bin/scalac /usr/bin/scalac && \
+    cp -r /opt/sdkman/kotlin/1.3.50/lib /usr/lib/kotlin && \
+    cp -r /opt/sdkman/scala/2.13.0/lib /usr/lib/scala
 
 RUN	cd /tmp && git clone --depth 1 https://github.com/pocmo/Python-Brainfuck.git && mv Python-Brainfuck /usr/bin/brainfuck
 

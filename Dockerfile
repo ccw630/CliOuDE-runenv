@@ -2,8 +2,8 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 
 COPY build/java_policy /etc
-COPY sdkman /opt
-COPY jdt-language-server /opt
+COPY sdkman /opt/sdkman
+COPY jdt-language-server /opt/jdt-ls
 
 SHELL ["/bin/bash", "-c"]
 

@@ -1,0 +1,15 @@
+name: Docker Image Build & Publish
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: build & push image
+      run: |
+        docker build . --tag ${{ secrets.HUB_USER }}/clioude-runenv:latest
+        docker push ${{ secrets.HUB_USER }}/clioude-runenv:latest
